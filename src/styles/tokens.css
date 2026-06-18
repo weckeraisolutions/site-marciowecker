@@ -1,0 +1,16 @@
+/* Tokens de design - direção Executivo Dark.
+   Paleta e tipografia conforme Marca_Visual/Briefing_Identidade.md (vault). */
+@theme {
+  /* Cores */
+  --color-ink: #0b0b0d; /* Preto-tinta - fundo principal B2B/hero/método */
+  --color-cream: #f4efe6; /* Off-white quente - seções humanas (Sobre) */
+  --color-champagne: #c9a961; /* Champanhe fosco - acento, eyebrow, números */
+  --color-bronze: #8a6b2e; /* Bronze profundo - variação secundária */
+  --color-graphite: #1e1e22; /* Cinza chumbo - cartões sobre preto */
+  --color-mute: #8e8b85; /* Cinza neutro - texto secundário, labels */
+
+  /* Tipografia */
+  --font-display: "Fraunces", Georgia, serif; /* headlines */
+  --font-eyebrow: "Cabinet Grotesk", "Inter", sans-serif; /* eyebrow, labels, números */
+  --font-body: "Inter", system-ui, sans-serif; /* corpo */
+}
