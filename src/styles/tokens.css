@@ -8,9 +8,27 @@
   --color-bronze: #8a6b2e; /* Bronze profundo - variação secundária */
   --color-graphite: #1e1e22; /* Cinza chumbo - cartões sobre preto */
   --color-mute: #8e8b85; /* Cinza neutro - texto secundário, labels */
+  --color-signal: #147BFF; /* Azul elétrico v3 - ação, progresso e estados ativos */
+  --color-black: #000000; /* Preto absoluto da direção v2 */
+  --color-white: #ffffff; /* Branco de alto contraste da direção v2 */
 
   /* Tipografia */
   --font-display: "Fraunces", Georgia, serif; /* headlines */
   --font-eyebrow: "Cabinet Grotesk", "Inter", sans-serif; /* eyebrow, labels, números */
   --font-body: "Inter", system-ui, sans-serif; /* corpo */
+
+  /* Escala tipográfica fluida (clamp: mínimo mobile, ideal viewport, máximo desktop) */
+  --text-eyebrow: 0.75rem; /* labels Cabinet uppercase */
+  --text-body: clamp(1rem, 0.95rem + 0.3vw, 1.125rem); /* parágrafos */
+  --text-lead: clamp(1.125rem, 1rem + 0.6vw, 1.375rem); /* lead/subtítulos */
+  --text-h3: clamp(1.5rem, 1.2rem + 1.4vw, 1.75rem); /* títulos de oferta/passo */
+  --text-h2: clamp(2rem, 1.4rem + 2.8vw, 3.25rem); /* headline de seção */
+  --text-display: clamp(2.75rem, 1.6rem + 5.5vw, 6rem); /* display hero/momentos */
+
+  /* Espaçamentos de ritmo vertical e padding de seção */
+  --space-section: clamp(5rem, 3rem + 8vw, 9rem); /* respiro vertical entre seções */
+  --space-block: clamp(2.5rem, 1.8rem + 3vw, 4rem); /* respiro entre blocos internos */
+
+  /* Tracking dos eyebrows Cabinet uppercase (letter-spacing largo) */
+  --tracking-eyebrow: 0.3em;
 }

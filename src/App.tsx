@@ -1,22 +1,71 @@
-import { SITE } from "@/content/site"
+import { Routes, Route, useLocation } from "react-router-dom"
+import { SITE_SECTIONS } from "@/content/sections"
+import { CrystalNavProvider } from "@/components/crystal/CrystalNavProvider"
+import { AccessibilityNav } from "@/components/layout/AccessibilityNav"
+import { TopBar } from "@/components/layout/TopBar"
+import { Footer } from "@/components/layout/Footer"
+import { Section } from "@/components/ui/Section"
+import { Container } from "@/components/ui/Container"
+import { Eyebrow } from "@/components/ui/Eyebrow"
+import { SectionPlaceholder } from "@/components/sections/SectionPlaceholder"
+import { MarcioSiteV3 } from "@/components/site-v3/MarcioSiteV3"
+import { ArquitetoViberSalesPage } from "@/components/arquiteto-viber/ArquitetoViberSalesPage"
 
-/**
- * Placeholder da Fase 1 (setup). Confirma tokens, fontes e build.
- * Será substituído pelas seções reais a partir da Fase 4.
- */
-function App() {
+/** Temperatura de cada seção conforme o sistema de duas temperaturas (vault). */
+const SECTION_TEMPERATURE: Record<string, "dark" | "cream"> = {
+  sobre: "cream",
+  metodo: "dark",
+  ofertas: "dark",
+  contato: "dark",
+}
+
+function NotFound() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 bg-ink px-6 text-center">
-      <p className="font-eyebrow text-xs uppercase tracking-[0.35em] text-champagne">
-        {SITE.tagline}
-      </p>
-      <h1 className="font-display text-5xl font-light text-cream sm:text-6xl">
-        {SITE.name}
-      </h1>
-      <p className="font-eyebrow text-[0.7rem] uppercase tracking-[0.3em] text-mute">
-        {SITE.anchor}
-      </p>
-    </main>
+    <Section temperature="dark" labelledBy="nf-eyebrow">
+      <Container className="flex min-h-[50vh] flex-col items-start justify-center gap-6">
+        <Eyebrow id="nf-eyebrow" tone="champagne" line>
+          404
+        </Eyebrow>
+        <p className="font-display text-[length:var(--text-h2)] font-light">
+          Esta rota não existe no método.
+        </p>
+      </Container>
+    </Section>
+  )
+}
+
+function App() {
+  const location = useLocation()
+  const immersive = location.pathname === "/" || location.pathname === "/arquiteto-viber"
+
+  return (
+    <CrystalNavProvider>
+      <AccessibilityNav />
+      {!immersive && <TopBar />}
+
+      <main id="conteudo" className={immersive ? "" : "pt-14 sm:pt-16"}>
+        <Routes>
+          <Route path="/" element={<MarcioSiteV3 />} />
+          <Route path="/arquiteto-viber" element={<ArquitetoViberSalesPage />} />
+          {SITE_SECTIONS.map((section) => (
+            <Route
+              key={section.id}
+              path={section.route}
+              element={
+                <SectionPlaceholder
+                  id={section.id}
+                  label={section.label}
+                  temperature={SECTION_TEMPERATURE[section.id]}
+                />
+              }
+            />
+          ))}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+
+      {!immersive && <Footer />}
+    </CrystalNavProvider>
   )
 }
 
