@@ -29,8 +29,9 @@ const sitesSpaWorker = {
     const response = await assets.fetch(request);
     if (response.status !== 404) return response;
 
-    const acceptsHtml = (request.headers.get("accept") || "").includes("text/html");
-    if ((request.method !== "GET" && request.method !== "HEAD") || !acceptsHtml) {
+    const pathname = new URL(request.url).pathname;
+    const requestsAFile = /\\.[^/]+$/.test(pathname);
+    if ((request.method !== "GET" && request.method !== "HEAD") || requestsAFile) {
       return response;
     }
 
