@@ -2,7 +2,7 @@ import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 import { sites } from "@openai/sites-vite-plugin"
-import { mkdir, rm, writeFile } from "node:fs/promises"
+import { copyFile, mkdir, rm, writeFile } from "node:fs/promises"
 import { fileURLToPath, URL } from "node:url"
 
 const sitesSpaWorker = {
@@ -16,7 +16,13 @@ const sitesSpaWorker = {
   },
   async closeBundle() {
     const serverDir = fileURLToPath(new URL("./dist/server", import.meta.url))
+    const productRouteDir = fileURLToPath(new URL("./dist/client/arquiteto-viber", import.meta.url))
     await mkdir(serverDir, { recursive: true })
+    await mkdir(productRouteDir, { recursive: true })
+    await copyFile(
+      fileURLToPath(new URL("./dist/client/index.html", import.meta.url)),
+      fileURLToPath(new URL("./dist/client/arquiteto-viber/index.html", import.meta.url)),
+    )
     await writeFile(
       fileURLToPath(new URL("./dist/server/index.js", import.meta.url)),
       `export default {
