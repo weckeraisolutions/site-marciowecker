@@ -26,11 +26,11 @@ const sitesSpaWorker = {
       return new Response("Site assets are unavailable.", { status: 503 });
     }
 
-    const response = await assets.fetch(request);
-    if (response.status !== 404) return response;
-
     const pathname = new URL(request.url).pathname;
     const requestsAFile = /\\.[^/]+$/.test(pathname);
+    const response = await assets.fetch(request);
+    if (response.ok || requestsAFile) return response;
+
     if ((request.method !== "GET" && request.method !== "HEAD") || requestsAFile) {
       return response;
     }
