@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type MouseEvent } from "react"
 import {
   BadgeCheck,
   BriefcaseBusiness,
@@ -11,10 +11,9 @@ import {
 } from "lucide-react"
 import "./arquiteto-viber-sales.css"
 
-// Inserir a URL oficial de aquisição quando ela for fornecida.
-const CHECKOUT_URL = ""
-const PURCHASE_URL = CHECKOUT_URL ||
-  "mailto:weckeraisolutions@gmail.com?subject=Quero%20adquirir%20o%20Arquiteto%20Viber"
+const HOTMART_CHECKOUT_URL = "https://pay.hotmart.com/H107259649Y?checkoutMode=2"
+const HOTMART_WIDGET_SCRIPT = "https://static.hotmart.com/checkout/widget.min.js"
+const HOTMART_WIDGET_STYLES = "https://static.hotmart.com/css/hotmart-fb.min.css"
 
 const outcomes = [
   ["01", "Uma ideia que faz sentido", "Pesquisa de mercado, público e problema antes de investir tempo construindo."],
@@ -76,7 +75,9 @@ const faq = [
 ]
 
 function BuyLink({ children, className = "" }: { children: string; className?: string }) {
-  return <a className={`av-button ${className}`} href={PURCHASE_URL}>{children}<span aria-hidden="true">→</span></a>
+  const keepWidgetOnPage = (event: MouseEvent<HTMLAnchorElement>) => event.preventDefault()
+
+  return <a className={`av-button hotmart-fb hotmart__button-checkout ${className}`} href={HOTMART_CHECKOUT_URL} onClick={keepWidgetOnPage}>{children}<span aria-hidden="true">→</span></a>
 }
 
 function InlineConversion({ text, action }: { text: string; action: string }) {
@@ -299,6 +300,23 @@ export function ArquitetoViberSalesPage() {
   const professionalDialogRef = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
+    if (!document.querySelector(`link[href="${HOTMART_WIDGET_STYLES}"]`)) {
+      const stylesheet = document.createElement("link")
+      stylesheet.rel = "stylesheet"
+      stylesheet.type = "text/css"
+      stylesheet.href = HOTMART_WIDGET_STYLES
+      document.head.appendChild(stylesheet)
+    }
+
+    if (!document.querySelector(`script[src="${HOTMART_WIDGET_SCRIPT}"]`)) {
+      const script = document.createElement("script")
+      script.src = HOTMART_WIDGET_SCRIPT
+      script.async = true
+      document.head.appendChild(script)
+    }
+  }, [])
+
+  useEffect(() => {
     const oldTitle = document.title
     const description = document.querySelector<HTMLMetaElement>('meta[name="description"]')
     const oldDescription = description?.content
@@ -443,7 +461,7 @@ export function ArquitetoViberSalesPage() {
       </dialog>
 
       <footer className="av-footer"><a href="/" aria-label="Voltar ao site de Marcio Wecker"><img src="/images/logo/monograma-branco.svg" alt="" /></a><p>© {new Date().getFullYear()} WECKER AI SOLUTIONS<br /><span>Todos os direitos reservados.</span></p><nav><a href="#transformacao">O que muda</a><a href="#como-funciona">Como funciona</a><a href="#seguranca">Segurança</a><a href="mailto:weckeraisolutions@gmail.com">Suporte</a></nav></footer>
-      <a className="av-mobile-buy" href={PURCHASE_URL}>Adquirir agora<span>→</span></a>
+      <a className="av-mobile-buy hotmart-fb hotmart__button-checkout" href={HOTMART_CHECKOUT_URL} onClick={(event) => event.preventDefault()}>Adquirir agora<span>→</span></a>
     </div>
   )
 }
