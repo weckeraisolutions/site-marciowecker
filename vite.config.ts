@@ -2,12 +2,18 @@ import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 import tailwindcss from "@tailwindcss/vite"
 import { sites } from "@openai/sites-vite-plugin"
-import { mkdir, writeFile } from "node:fs/promises"
+import { mkdir, rm, writeFile } from "node:fs/promises"
 import { fileURLToPath, URL } from "node:url"
 
 const sitesSpaWorker = {
   name: "sites-spa-worker",
   apply: "build" as const,
+  async buildStart() {
+    await rm(fileURLToPath(new URL("./dist", import.meta.url)), {
+      recursive: true,
+      force: true,
+    })
+  },
   async closeBundle() {
     const serverDir = fileURLToPath(new URL("./dist/server", import.meta.url))
     await mkdir(serverDir, { recursive: true })
@@ -41,6 +47,9 @@ const sitesSpaWorker = {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss(), sites(), sitesSpaWorker],
+  build: {
+    outDir: "dist/client",
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
