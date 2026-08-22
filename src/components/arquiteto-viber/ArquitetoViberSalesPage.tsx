@@ -14,6 +14,7 @@ import "./arquiteto-viber-sales.css"
 const HOTMART_CHECKOUT_URL = "https://pay.hotmart.com/H107259649Y?checkoutMode=2"
 const HOTMART_WIDGET_SCRIPT = "https://static.hotmart.com/checkout/widget.min.js"
 const HOTMART_WIDGET_STYLES = "https://static.hotmart.com/css/hotmart-fb.min.css"
+const HOTMART_BRAND_OVERRIDE_ID = "arquiteto-viber-hotmart-brand-overrides"
 
 const outcomes = [
   ["01", "Uma ideia que faz sentido", "Pesquisa de mercado, público e problema antes de investir tempo construindo."],
@@ -306,6 +307,80 @@ export function ArquitetoViberSalesPage() {
       stylesheet.type = "text/css"
       stylesheet.href = HOTMART_WIDGET_STYLES
       document.head.appendChild(stylesheet)
+    }
+
+    // O widget precisa do CSS da Hotmart para o modal, mas ele também tenta
+    // redesenhar o link de compra. Esta camada, inserida depois, preserva o
+    // checkout e devolve aos CTAs o design system da página.
+    if (!document.getElementById(HOTMART_BRAND_OVERRIDE_ID)) {
+      const brandOverrides = document.createElement("style")
+      brandOverrides.id = HOTMART_BRAND_OVERRIDE_ID
+      brandOverrides.textContent = `
+        .av-page a.av-button.hotmart-fb.hotmart__button-checkout {
+          min-width: 265px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: space-between !important;
+          gap: 24px !important;
+          padding: 17px 22px !important;
+          border: 1px solid #147bff !important;
+          border-radius: 999px !important;
+          background: #147bff !important;
+          box-shadow: 0 18px 55px rgba(20,123,255,.21) !important;
+          color: #fff !important;
+          font: 700 10px/1.2 "AV Manrope", sans-serif !important;
+          letter-spacing: .07em !important;
+          text-align: left !important;
+          text-decoration: none !important;
+          text-transform: uppercase !important;
+        }
+        .av-page a.av-button.hotmart-fb.hotmart__button-checkout:hover {
+          transform: translateY(-3px) !important;
+          box-shadow: 0 24px 70px rgba(20,123,255,.31) !important;
+        }
+        .av-page a.av-button.hotmart-fb.hotmart__button-checkout:focus-visible,
+        .av-page a.av-mobile-buy.hotmart-fb.hotmart__button-checkout:focus-visible {
+          outline: 2px solid #fff !important;
+          outline-offset: 4px !important;
+        }
+        .av-page a.av-header-button.hotmart-fb.hotmart__button-checkout {
+          min-width: 160px !important;
+          padding: 13px 18px !important;
+          background: transparent !important;
+          box-shadow: none !important;
+        }
+        .av-page a.av-mobile-buy.hotmart-fb.hotmart__button-checkout {
+          display: none !important;
+        }
+        @media (max-width: 800px) {
+          .av-page a.av-header-button.hotmart-fb.hotmart__button-checkout {
+            min-width: 142px !important;
+            padding: 12px 15px !important;
+            font-size: 8px !important;
+          }
+          .av-page a.av-mobile-buy.hotmart-fb.hotmart__button-checkout {
+            position: fixed !important;
+            z-index: 40 !important;
+            right: 12px !important;
+            bottom: 12px !important;
+            left: 12px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            padding: 16px 20px !important;
+            border: 0 !important;
+            border-radius: 999px !important;
+            background: #147bff !important;
+            box-shadow: 0 15px 50px rgba(0,0,0,.8) !important;
+            color: #fff !important;
+            font: 700 9px/1.2 "AV Manrope", sans-serif !important;
+            letter-spacing: .08em !important;
+            text-decoration: none !important;
+            text-transform: uppercase !important;
+          }
+        }
+      `
+      document.head.appendChild(brandOverrides)
     }
 
     if (!document.querySelector(`script[src="${HOTMART_WIDGET_SCRIPT}"]`)) {
