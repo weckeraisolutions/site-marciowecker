@@ -253,22 +253,22 @@ body { margin:0; background:var(--mw-black); }
 /* Hero mobile: texto e retrato ocupam territórios laterais independentes. */
 @media(max-width:800px){
   .mw-hero{min-height:100svh;align-items:center}
-  .mw-hero-copy{z-index:3;width:42vw;max-width:360px;margin:0 auto 0 5vw;padding-top:4vh}
-  .mw-hero .mw-eyebrow{max-width:42vw;margin-bottom:22px;gap:8px;font-size:7px;line-height:1.65;letter-spacing:.15em}
+  .mw-hero-copy{z-index:3;width:38vw;max-width:360px;margin:0 auto 0 5vw;padding-top:2vh}
+  .mw-hero .mw-eyebrow{max-width:38vw;margin-bottom:18px;gap:7px;font-size:6px;line-height:1.6;letter-spacing:.13em}
   .mw-hero .mw-eyebrow>span{width:6px;height:6px;flex:0 0 auto}
-  .mw-hero h1{font-size:clamp(39px,11.2vw,64px);line-height:.82;letter-spacing:-.07em}
+  .mw-hero h1{font-size:clamp(33px,9.7vw,42px);line-height:.84;letter-spacing:-.065em}
   .mw-hero .mw-line.outline{margin-left:0;-webkit-text-stroke-width:.8px}
-  .mw-hero-bottom{width:100%;margin:4vh 0 0;gap:16px}
-  .mw-hero-bottom p{font-size:clamp(11px,1.8vw,14px);line-height:1.55}
-  .mw-hero-bottom .mw-hero-primary-cta{width:100%;min-width:0;min-height:44px;padding:0 12px 0 13px;gap:10px;font-size:8px;line-height:1.25;letter-spacing:.1em}
+  .mw-hero-bottom{width:100%;margin:3.5vh 0 0;gap:14px}
+  .mw-hero-bottom p{font-size:clamp(10px,2.6vw,11px);line-height:1.5}
+  .mw-hero-bottom .mw-hero-primary-cta{width:100%;min-width:0;min-height:44px;padding:0 10px;gap:8px;font-size:7.5px;line-height:1.25;letter-spacing:.08em}
   .mw-hero-bottom .mw-hero-primary-cta span{font-size:14px}
-  .mw-hero-art{left:auto;right:0;width:58vw;height:66%;bottom:0;overflow:hidden}
-  .mw-hero-art img{object-fit:cover;object-position:62% bottom;opacity:1}
+  .mw-hero-art{left:auto;right:0;width:60vw;height:auto;aspect-ratio:1477/2048;bottom:2svh;overflow:visible}
+  .mw-hero-art img{object-fit:contain;object-position:right bottom;opacity:1}
 }
 
 @media(max-width:380px){
-  .mw-hero-copy{width:43vw;margin-left:4.5vw}
-  .mw-hero .mw-eyebrow{max-width:43vw;font-size:6.5px}
-  .mw-hero h1{font-size:clamp(37px,11.2vw,44px)}
-  .mw-hero-art{right:0;width:58vw;height:64%}
+  .mw-hero-copy{width:38vw;margin-left:4.5vw}
+  .mw-hero .mw-eyebrow{max-width:38vw;font-size:5.7px}
+  .mw-hero h1{font-size:clamp(32px,9.7vw,36px)}
+  .mw-hero-art{right:0;width:60vw;height:auto;bottom:2svh}
 }
