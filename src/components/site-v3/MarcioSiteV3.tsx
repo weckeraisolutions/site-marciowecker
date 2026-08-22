@@ -248,7 +248,7 @@ export function MarcioSiteV3() {
       heroTimeline
         .to(".mw-hero h1 .mw-line", { y: mobileHero ? -86 : -150, opacity: 0, stagger: 0.06, ease: "none" }, 0)
         .to(".mw-hero .mw-eyebrow", { y: mobileHero ? -48 : -80, opacity: 0, ease: "none" }, 0)
-        .to(".mw-hero-bottom", { y: mobileHero ? -46 : -70, opacity: 0, ease: "none" }, 0.04)
+        .to(mobileHero ? ".mw-hero-bottom, .mw-hero-mobile-cta" : ".mw-hero-bottom", { y: mobileHero ? -46 : -70, opacity: 0, ease: "none" }, 0.04)
         .to(".mw-hero-art", { xPercent: mobileHero ? 18 : 24, scale: mobileHero ? 0.97 : 0.94, opacity: 0, ease: "power1.in" }, 0)
       gsap.utils.toArray<HTMLElement>(".mw-section-title, .mw-copy-reveal").forEach((element) => {
         gsap.from(element, { y: 80, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: element, start: "top 86%" } })
@@ -324,6 +324,7 @@ export function MarcioSiteV3() {
             </div>
           </div>
           <figure className="mw-hero-art"><img src="/images/marcio/hero_png.png" alt="Retrato profissional de Marcio Wecker" /></figure>
+          <a className="mw-hero-mobile-cta" href="#metodo">Veja como funciona <span>→</span></a>
         </section>
 
         <section className="mw-signal" id="sobre">
