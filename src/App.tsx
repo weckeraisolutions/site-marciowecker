@@ -36,7 +36,10 @@ function NotFound() {
 
 function App() {
   const location = useLocation()
-  const immersive = location.pathname === "/" || location.pathname === "/arquiteto-viber"
+  // Sites publica rotas com e sem barra final. Normalizar o caminho evita que
+  // o layout institucional seja montado por cima das páginas imersivas.
+  const normalizedPath = location.pathname.replace(/\/+$/, "") || "/"
+  const immersive = normalizedPath === "/" || normalizedPath === "/arquiteto-viber"
 
   return (
     <CrystalNavProvider>

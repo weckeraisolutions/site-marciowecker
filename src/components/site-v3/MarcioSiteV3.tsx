@@ -233,16 +233,23 @@ export function MarcioSiteV3() {
     const context = gsap.context(() => {
       gsap.from(".mw-hero .mw-reveal", { yPercent: 110, duration: 1.25, stagger: 0.1, ease: "power4.out", delay: 0.2 })
       gsap.from(".mw-hero-art", { clipPath: "inset(0 0 100% 0)", duration: 1.6, ease: "power4.inOut", delay: 0.35 })
-      if (window.innerWidth > 800) {
-        const heroTimeline = gsap.timeline({
-          scrollTrigger: { trigger: ".mw-hero", start: "top top", end: "+=90%", scrub: 1, pin: true, anticipatePin: 1 },
-        })
-        heroTimeline
-          .to(".mw-hero h1 .mw-line", { y: -150, opacity: 0, stagger: 0.06, ease: "none" }, 0)
-          .to(".mw-hero .mw-eyebrow", { y: -80, opacity: 0, ease: "none" }, 0)
-          .to(".mw-hero-bottom", { y: -70, opacity: 0, ease: "none" }, 0.04)
-          .to(".mw-hero-art", { xPercent: 24, scale: 0.94, opacity: 0, ease: "power1.in" }, 0)
-      }
+      const mobileHero = window.innerWidth <= 800
+      const heroTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".mw-hero",
+          start: "top top",
+          end: mobileHero ? "+=68%" : "+=90%",
+          scrub: mobileHero ? 0.75 : 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      })
+      heroTimeline
+        .to(".mw-hero h1 .mw-line", { y: mobileHero ? -86 : -150, opacity: 0, stagger: 0.06, ease: "none" }, 0)
+        .to(".mw-hero .mw-eyebrow", { y: mobileHero ? -48 : -80, opacity: 0, ease: "none" }, 0)
+        .to(".mw-hero-bottom", { y: mobileHero ? -46 : -70, opacity: 0, ease: "none" }, 0.04)
+        .to(".mw-hero-art", { xPercent: mobileHero ? 18 : 24, scale: mobileHero ? 0.97 : 0.94, opacity: 0, ease: "power1.in" }, 0)
       gsap.utils.toArray<HTMLElement>(".mw-section-title, .mw-copy-reveal").forEach((element) => {
         gsap.from(element, { y: 80, opacity: 0, duration: 1, ease: "power3.out", scrollTrigger: { trigger: element, start: "top 86%" } })
       })

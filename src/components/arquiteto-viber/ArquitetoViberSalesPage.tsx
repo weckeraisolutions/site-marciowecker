@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent } from "react"
+import { useEffect, useRef, useState } from "react"
 import {
   BadgeCheck,
   BriefcaseBusiness,
@@ -76,9 +76,10 @@ const faq = [
 ]
 
 function BuyLink({ children, className = "" }: { children: string; className?: string }) {
-  const keepWidgetOnPage = (event: MouseEvent<HTMLAnchorElement>) => event.preventDefault()
-
-  return <a className={`av-button hotmart-fb hotmart__button-checkout ${className}`} href={HOTMART_CHECKOUT_URL} onClick={keepWidgetOnPage}>{children}<span aria-hidden="true">→</span></a>
+  // O widget intercepta o clique quando está disponível. Sem preventDefault,
+  // navegadores móveis incompatíveis continuam com um fallback seguro para o
+  // checkout, em vez de deixarem o CTA sem resposta.
+  return <a className={`av-button hotmart-fb hotmart__button-checkout ${className}`} href={HOTMART_CHECKOUT_URL}>{children}<span aria-hidden="true">→</span></a>
 }
 
 function InlineConversion({ text, action }: { text: string; action: string }) {
@@ -367,7 +368,8 @@ export function ArquitetoViberSalesPage() {
             display: flex !important;
             align-items: center !important;
             justify-content: space-between !important;
-            padding: 16px 20px !important;
+            min-height: 52px !important;
+            padding: 0 20px !important;
             border: 0 !important;
             border-radius: 999px !important;
             background: #147bff !important;
@@ -536,7 +538,7 @@ export function ArquitetoViberSalesPage() {
       </dialog>
 
       <footer className="av-footer"><a href="/" aria-label="Voltar ao site de Marcio Wecker"><img src="/images/logo/monograma-branco.svg" alt="" /></a><p>© {new Date().getFullYear()} WECKER AI SOLUTIONS<br /><span>Todos os direitos reservados.</span></p><nav><a href="#transformacao">O que muda</a><a href="#como-funciona">Como funciona</a><a href="#seguranca">Segurança</a><a href="mailto:weckeraisolutions@gmail.com">Suporte</a></nav></footer>
-      <a className="av-mobile-buy hotmart-fb hotmart__button-checkout" href={HOTMART_CHECKOUT_URL} onClick={(event) => event.preventDefault()}>Adquirir agora<span>→</span></a>
+      <a className="av-mobile-buy hotmart-fb hotmart__button-checkout" href={HOTMART_CHECKOUT_URL}>Adquirir agora<span>→</span></a>
     </div>
   )
 }
