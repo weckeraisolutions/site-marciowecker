@@ -11,7 +11,7 @@ import {
 } from "lucide-react"
 import "./arquiteto-viber-sales.css"
 
-const HOTMART_CHECKOUT_URL = "https://pay.hotmart.com/H107259649Y?checkoutMode=2"
+const HOTMART_CHECKOUT_URL = "https://pay.hotmart.com/H107259649Y?off=ptiso93u&checkoutMode=10"
 const HOTMART_WIDGET_SCRIPT = "https://static.hotmart.com/checkout/widget.min.js"
 const HOTMART_WIDGET_STYLES = "https://static.hotmart.com/css/hotmart-fb.min.css"
 const HOTMART_BRAND_OVERRIDE_ID = "arquiteto-viber-hotmart-brand-overrides"
